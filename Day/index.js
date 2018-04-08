@@ -9,10 +9,16 @@ import {
   View,
   Text,
   StyleSheet,
-  TouchableHighlight
+  TouchableHighlight,
+  Dimensions,
 } from 'react-native';
 import Moment from 'moment';
 import styles from './style';
+const {width} = Dimensions.get('window');
+let dayWidth = width / 7;
+import moment from 'moment';
+
+
 
 export default class Day extends Component {
   static propTypes = {
@@ -37,6 +43,27 @@ export default class Day extends Component {
       maxDate,
       empty
     } = props || this.props;
+    const {
+        disabledDate
+    } = this.props
+    if(date){
+        const dateString = date.format('YYYY-MM-DD')
+        const isCloud = disabledDate.find((e)=>e===dateString)
+        if(isCloud){
+            this.isDis = true
+        }
+        if(startDate){
+            const startDateString = startDate.format('YYYY-MM-DD')
+            const thresholdDate = disabledDate.find((e)=>moment(e).isAfter(startDateString))
+            if(thresholdDate){
+                if(date.isAfter(thresholdDate)){
+                    this.isDis2 = true
+                }
+            }
+        }else {
+            this.isDis2 = false
+        }
+    }
     this.isToday = today.isSame(date, 'd');
     this.isValid = date &&
       (date >= minDate || date.isSame(minDate, 'd')) &&
@@ -52,6 +79,7 @@ export default class Day extends Component {
   shouldComponentUpdate (nextProps) {
     let prevStatus = this.isFocus;
     let nextStatus = this._statusCheck(nextProps);
+    return true;
     if (prevStatus || nextStatus) return true;
     return false;
   }
@@ -74,7 +102,7 @@ export default class Day extends Component {
           this.isEnd && styles.endContainer,
           (this.isStartPart || this.isEnd) && subBack
         ]}>
-        {this.isValid ?
+        {this.isValid&&!this.isDis&&!this.isDis2 ?
           <TouchableHighlight
             style={[styles.day, this.isToday && styles.today, this.isFocus && subBack]}
             underlayColor="rgba(255, 255, 255, 0.35)"
@@ -84,6 +112,9 @@ export default class Day extends Component {
           <View style={[styles.day, this.isToday && styles.today]}>
             <Text style={styles.dayTextDisabled}>{text}</Text>
           </View>
+        }
+        {this.isStartPart&&
+            <View style={{backgroundColor:'#fff',height:dayWidth,width:5,position:'absolute',right:0,top:0}}/>
         }
       </View>
     );
