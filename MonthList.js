@@ -50,6 +50,7 @@ export default class MonthList extends Component {
       <Month
         month={month.date || {}}
         {...this.props}
+        disabledDate={this.props.disabledDate}
       />
     );
   }
@@ -71,6 +72,7 @@ export default class MonthList extends Component {
     } = month;
     let next = this._checkRange(date, startDate, endDate);
     let prev = this._checkRange(date, this.props.startDate, this.props.endDate);
+    return true;
     if (prev || next) return true;
     return false;
   }
