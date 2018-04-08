@@ -86,7 +86,8 @@ export default class Month extends Component {
     const {
       startDate,
       endDate,
-      today
+      today,
+      disabledDate,
     } = this.props;
     return (
       <View style={styles.dayRow} key={'row' + index}>
@@ -95,7 +96,9 @@ export default class Month extends Component {
             date={item.date}
             empty={item.empty}
             {...this.props}
-            key={'day' + i}/>
+            key={'day' + i}
+            disabledDate={disabledDate}
+        />
         )}
       </View>
     );
