@@ -4,10 +4,10 @@ import {
 } from 'react-native';
 const {scale, width} = Dimensions.get('window');
 let dayWidth = width / 7;
-let mod = scale * width % 7;
-if (mod) {
-  dayWidth = ((7 - mod) / scale + width) / 7;
-}
+// let mod = scale * width % 7;
+// if (mod) {
+//   dayWidth = ((7 - mod) / scale + width) / 7;
+// }
 export default StyleSheet.create({
   dayContainer: {
     width: dayWidth,
@@ -16,7 +16,7 @@ export default StyleSheet.create({
   },
   startContainer: {
     borderTopLeftRadius: 100,
-    borderBottomLeftRadius: 100
+    borderBottomLeftRadius: 100,
   },
   endContainer: {
     borderTopRightRadius: 100,
