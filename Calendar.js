@@ -225,6 +225,9 @@ export default class Calendar extends Component {
       subColor = '#fff',
       borderColor = 'rgba(255, 255, 255, 0.50)'
     } = this.props.color;
+    const {
+        disabledDate
+    } = this.props
     let color = {mainColor, subColor, borderColor};
     let mainBack = {backgroundColor: mainColor};
     let subBack = {backgroundColor: subColor};
@@ -289,6 +292,7 @@ export default class Calendar extends Component {
               onChoose={this._onChoose}
               i18n={this.props.i18n}
               color={color}
+              disabledDate={disabledDate}
             />
           </View>
           <View style={styles.btn}>
