@@ -153,23 +153,35 @@ export default class Calendar extends Component {
   _onChoose (day) {
     const {
       startDate,
-      endDate
+      endDate,
     } = this.state;
-    if ((!startDate && !endDate) || day < startDate || (startDate && endDate)) {
-      this.setState({
-        startDate: day,
-        endDate: null,
-        startDateText: this._i18n(day, 'date'),
-        startWeekdayText: this._i18n(day.isoWeekday(), 'weekday'),
-        endDateText: '',
-        endWeekdayText: '',
-      });
-    } else if (startDate && !endDate && day > startDate) {
-      this.setState({
-        endDate: day,
-        endDateText: this._i18n(day, 'date'),
-        endWeekdayText: this._i18n(day.isoWeekday(), 'weekday')
-      });
+    const { range } = this.props
+    if(range){
+        if ((!startDate && !endDate) || day < startDate || (startDate && endDate)) {
+          this.setState({
+            startDate: day,
+            endDate: null,
+            startDateText: this._i18n(day, 'date'),
+            startWeekdayText: this._i18n(day.isoWeekday(), 'weekday'),
+            endDateText: '',
+            endWeekdayText: '',
+          });
+        } else if (startDate && !endDate && day > startDate) {
+          this.setState({
+            endDate: day,
+            endDateText: this._i18n(day, 'date'),
+            endWeekdayText: this._i18n(day.isoWeekday(), 'weekday')
+          });
+        }
+    }else {
+        this.setState({
+          startDate: day,
+          endDate: null,
+          startDateText: this._i18n(day, 'date'),
+          startWeekdayText: this._i18n(day.isoWeekday(), 'weekday'),
+          endDateText: '',
+          endWeekdayText: '',
+        })
     }
   }
   cancel () {
@@ -226,14 +238,15 @@ export default class Calendar extends Component {
       borderColor = 'rgba(255, 255, 255, 0.50)'
     } = this.props.color;
     const {
-        disabledDate
+        disabledDate,
+        range
     } = this.props
     let color = {mainColor, subColor, borderColor};
     let mainBack = {backgroundColor: mainColor};
     let subBack = {backgroundColor: subColor};
     let mainFontColor = {color: mainColor};
     let subFontColor = {color: subColor};
-    let isValid = !startDate || endDate;
+    let isValid = range ? (!startDate || endDate) : startDate;
     let isClearVisible = startDate || endDate;
     return (
       <Modal
