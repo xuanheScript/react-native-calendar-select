@@ -226,14 +226,15 @@ export default class Calendar extends Component {
       borderColor = 'rgba(255, 255, 255, 0.50)'
     } = this.props.color;
     const {
-        disabledDate
+        disabledDate,
+        submitBtnDisabled
     } = this.props
     let color = {mainColor, subColor, borderColor};
     let mainBack = {backgroundColor: mainColor};
     let subBack = {backgroundColor: subColor};
     let mainFontColor = {color: mainColor};
     let subFontColor = {color: subColor};
-    let isValid = !startDate || endDate;
+    let isValid = submitBtnDisabled ? submitBtnDisabled : (!startDate || endDate);
     let isClearVisible = startDate || endDate;
     return (
       <Modal
