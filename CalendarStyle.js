@@ -3,14 +3,14 @@ import {
   Dimensions
 } from 'react-native';
 const {scale, width} = Dimensions.get('window');
-let iconSize = 22;
-let resultFontSize = 24;
+let iconSize = 16;
+let resultFontSize = 16;
 let weekTextFontSize = 16;
 let slashLength = 80;
 if (width < 350) {
-  resultFontSize = 20;
+  resultFontSize = 14;
   weekTextFontSize = 14;
-  iconSize = 20;
+  iconSize = 14;
   slashLength = 70;
 }
 
