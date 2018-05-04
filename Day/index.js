@@ -97,14 +97,14 @@ export default class Day extends Component {
       <View
         style={[
           styles.dayContainer,
-          this.isMid && subBack,
+          (this.isMid&&this.isEnd!==null) && subBack,
           this.isStartPart && styles.startContainer,
           this.isEnd && styles.endContainer,
           (this.isStartPart || this.isEnd) && subBack
         ]}>
         {this.isValid&&!this.isDis&&!this.isDis2 ?
           <TouchableHighlight
-            style={[styles.day, this.isToday && styles.today, this.isFocus && subBack]}
+            style={[styles.day, this.isToday && styles.today, (this.isFocus&&this.isEnd!==null) && subBack]}
             underlayColor="rgba(255, 255, 255, 0.35)"
             onPress={this._chooseDay}>
             <Text style={[styles.dayText, subColor, this.isFocus && mainColor]}>{text}</Text>
